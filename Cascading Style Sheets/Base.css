@@ -1,0 +1,35 @@
+/* Bodies */
+body.Lab {
+    background-color: #906904;
+    color: #111111;
+}
+
+body.Zoo {
+    background-color: #800009;
+    color: #e41c0dee;
+}
+
+body.Portfolio-Module {
+    background-color: #12416872;
+    color: #230405;
+}
+
+/* Main */
+body.Main {
+    background-color: #dacaba;
+    color: #321c0ffe;
+}
+
+/* Other */
+h1.Automated-h1 {
+    text-align: center;
+}
+
+li.Automated-li {
+    display: block;
+}
+
+li.Automated-li a {
+    float: left;
+    clear: left;
+}

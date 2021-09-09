@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+   <head>
+      
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     
+      <link href="..\..\Cascading Style Sheets\Base.css" type="text/css" rel="stylesheet">
+
+      <script src="..\Headers.js"></script>
+      <script>
+         /* Scopes global variables in case they are needed */
+         const THIS = window.location.pathname
+         const THIS_FILENAME = ConvertToPlainEnglish(THIS) 
+         const THIS_HEAD = document.head
+
+         THIS_HEAD.innerHTML += `<title>${THIS_FILENAME}</title>`
+      </script>
+
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            
+      <script src="Sprint A1 - Graph 1.js" defer>
+      </script>
+
+   </head>
+
+   <body class="Portfolio-Module">
+      <h1 class="Automated-h1"></h1>
+
+      <script>
+         const THIS_BODYH1 = document.querySelector(".Automated-h1")
+
+         THIS_BODYH1.innerHTML += `${THIS_FILENAME}`
+      </script>
+
+      <h2>Number of visitors per caged animal</h6>
+
+      <canvas id="dataChart" width="250" height="200"></canvas>
+
+      <div class="Highest"></div>
+      <div class="Lowest"></div>
+      <div class="Difference"></div>
+   </body>
+
+   <style>
+      h2 {
+         text-align: center;
+      }
+      div {
+         text-align: center;
+      }
+   </style>
+
+</html>

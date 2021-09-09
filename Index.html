@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+   <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+      <link href="Cascading Style Sheets\Base.css" type="text/css" rel="stylesheet">
+
+      <script src="Headers.js"></script>
+
+      <script>
+         /* Scopes global variables in case they are needed */
+         const THIS = window.location.pathname
+         const THIS_FILENAME = ConvertToPlainEnglish(THIS) 
+         const THIS_HEAD = document.head
+
+         THIS_HEAD.innerHTML += `<title>${THIS_FILENAME}</title>`
+      </script>
+   </head>
+
+   <body class="Main">
+      <h1 class="Automated-h1"></h1>
+
+      <nav class="Main">
+         <li class="Automated-li"></li>
+      </nav>
+
+      <!-- 
+      SCRIPT: Uses the list class 'Automatic-List' to instantiate HTML "a href" references
+      PARAMS: The "Paths" array will become parsed, and any path it holds will be displayed
+      -->
+
+      <script>
+         const THIS_BODY = document.body
+         const THIS_BODYH1 = document.querySelector(".Automated-h1")
+         const THIS_NAVLIST = document.querySelector(".Automated-li")
+
+         THIS_BODYH1.innerHTML += `${THIS_FILENAME}`
+
+         let Paths = [
+            "Labs/Sprint A1 - Lab 1.html",
+            "Labs/Sprint A1 - Lab 2.html",
+            "Labs/Sprint A2 - Lab 1.html",
+            "Labs/Sprint A2 - Lab 2.html",
+            "Zoo Assignments/Sprint A1 - Zoo Assignment.html",
+            "Portfolio Modules/Sprint A1 - Simple Bar Graph.html",
+         ]
+
+         Paths.forEach(path => {
+            THIS_NAVLIST.innerHTML += 
+            `<a href='${path}'>${ConvertToPlainEnglish(path)}</a>`
+         })
+      </script>
+   </body>
+</html>
