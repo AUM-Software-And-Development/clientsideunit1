@@ -1,66 +1,82 @@
 <!DOCTYPE html>
 
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link
-      href="Cascading Style Sheets\Base.css"
-      type="text/css"
-      rel="stylesheet"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <script src="Headers.js"></script>
+  <link href="Cascading Style Sheets\Base.css" type="text/css" rel="stylesheet" />
 
-    <script>
-      /* Scopes global variables in case they are needed */
-      const THIS = window.location.pathname;
-      const THIS_FILENAME = ConvertToPlainEnglish(THIS);
-      const THIS_HEAD = document.head;
+  <script src="Headers.js"></script>
 
-      THIS_HEAD.innerHTML += `<title>${THIS_FILENAME}</title>`;
-    </script>
-  </head>
+  <script>
+    /* Scopes global variables in case they are needed */
+    const THIS = window.location.pathname;
+    const THIS_FILENAME = ConvertToPlainEnglish(THIS);
+    const THIS_HEAD = document.head;
 
-  <body class="Main">
-    <h1 class="Automated-h1"></h1>
+    THIS_HEAD.innerHTML += `<title>${THIS_FILENAME}</title>`;
+  </script>
+</head>
 
-    <nav class="Main">
-      <li class="Automated-li"></li>
-    </nav>
+<body class="Main">
+  <h1 class="Automated-h1"></h1>
 
-    <!-- 
+  <nav class="Main">
+    <li class="Automated-li"></li>
+  </nav>
+
+  <!-- 
       SCRIPT: Uses the list class 'Automatic-List' to instantiate HTML "a href" references
       PARAMS: The "Paths" array will become parsed, and any path it holds will be displayed
+              Using the switch cases, you can use labels for mapping
       -->
 
-    <script>
-      const THIS_BODY = document.body;
-      const THIS_BODYH1 = document.querySelector(".Automated-h1");
-      const THIS_NAVLIST = document.querySelector(".Automated-li");
+  <script>
+    const THIS_BODY = document.body;
+    const THIS_BODYH1 = document.querySelector(".Automated-h1");
+    const THIS_NAVLIST = document.querySelector(".Automated-li");
 
-      THIS_BODYH1.innerHTML += `${THIS_FILENAME}`;
+    THIS_BODYH1.innerHTML += `${THIS_FILENAME}`;
 
-      let Paths = [
-        "Labs/Sprint A1 - Lab 1.html",
-        "Labs/Sprint A1 - Lab 2.html",
-        "Labs/Sprint A2 - Lab 1.html",
-        "Labs/Sprint A2 - Lab 2.html",
-        "Labs/Sprint A2 - Lab 3.html",
-        "Labs/Sprint A3 - Lab 1.html",
-        "Zoo Assignments/Sprint A1 - Zoo Assignment.html",
-        "Zoo Assignments/Sprint A2 - Zoo Assignment.html",
-        "Portfolio Modules/Sprint A1 (Personal Portfolio) - Simple Bar Graph.html",
-        "Portfolio Modules/Sprint A2 (Personal Portfolio) - Canvas Snake Game.html",
-      ];
+    let Paths = [
+      "Lab_Label",
+      "Labs/Sprint A1 - Lab 1.html",
+      "Labs/Sprint A1 - Lab 2.html",
+      "Labs/Sprint A2 - Lab 1.html",
+      "Labs/Sprint A2 - Lab 2.html",
+      "Labs/Sprint A2 - Lab 3.html",
+      "Labs/Sprint A3 - Lab 1.html",
+      "Labs/Sprint A3 - Lab 2.html",
+      "Zoo_Label",
+      "Zoo Assignments/Sprint A1 - Zoo Assignment.html",
+      "Zoo Assignments/Sprint A2 - Zoo Assignment.html",
+      "Portfolio_Label",
+      "Portfolio Modules/Sprint A1 (Personal Portfolio) - Simple Bar Graph.html",
+      "Portfolio Modules/Sprint A2 (Personal Portfolio) - Canvas Snake Game.html",
+    ];
 
-      Paths.forEach((path) => {
-        THIS_NAVLIST.innerHTML += `<a href='${path}'>${ConvertToPlainEnglish(
-          path
-        )}</a>`;
-      });
-    </script>
-  </body>
+    Paths.forEach((path) => {
+      switch (path) {
+        case "Lab_Label":
+          THIS_NAVLIST.innerHTML += '<a><br/>Lab activities</a>'
+          break
+        case "Zoo_Label":
+          THIS_NAVLIST.innerHTML += '<a><br/>Zoo activities</a>'
+          break
+        case "Portfolio_Label":
+          THIS_NAVLIST.innerHTML += '<a><br/>Portfolio activities</a>'
+          break
+        default:
+          THIS_NAVLIST.innerHTML += `<a href='${path}'>${ConvertToPlainEnglish(
+            path
+          )}</a>`
+          break
+      }
+    });
+  </script>
+</body>
+
 </html>
