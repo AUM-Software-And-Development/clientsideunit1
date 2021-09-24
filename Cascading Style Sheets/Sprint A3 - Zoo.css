@@ -1,0 +1,59 @@
+/* Bodies */
+body.Zoo {
+  background-color: #098765;
+  color: #010101;
+  font-size: large;
+  font-weight: bold;
+}
+
+/* Main */
+body.Main {
+  background-color: #dabbaa;
+  color: #0f0000;
+}
+
+/* Other */
+h1.Automated-h1 {
+  text-align: center;
+}
+
+li.Automated-li {
+  display: block;
+}
+
+li.Automated-li a {
+  float: left;
+  clear: left;
+}
+
+table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  text-align: right;
+}
+
+thead tr {
+  background: #009879;
+  color: #ffffff;
+  text-align: left;
+}
+
+td {
+  padding: 12px 15px;
+}
+
+tbody tr {
+  border-bottom: 1px solid #131313;
+}
+
+tbody tr:nth-of-type(even) {
+  background: #f1f1f1;
+}
+
+tbody tr:last-of-type {
+  border-bottom: 2px solid #009875;
+}
