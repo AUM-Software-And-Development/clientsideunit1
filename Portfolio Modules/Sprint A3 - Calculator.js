@@ -1,6 +1,6 @@
 const display1 = document.querySelector(".display1");
 const display2 = document.querySelector(".display2");
-const temporaryResult = document.querySelector(".temp-result");
+const operationDisplay = document.querySelector(".currentoperation");
 const numbersElement = document.querySelectorAll(".number");
 const operationElement = document.querySelectorAll(".operation");
 const equalElement = document.querySelector(".equal");
@@ -53,12 +53,12 @@ numbersElement.forEach((number) => {
 });
 
 let Operations = [
-  { id: "EqualSwitch", status: false },
-  { id: "PlusSwitch", status: false },
-  { id: "MinusSwitch", status: false },
-  { id: "TimesSwitch", status: false },
-  { id: "DivideSwitch", status: false },
-  { id: "ModuloSwitch", status: false },
+  { id: "EqualSwitch", status: false, symbol: "=" },
+  { id: "PlusSwitch", status: false, symbol: "+" },
+  { id: "MinusSwitch", status: false, symbol: "-" },
+  { id: "TimesSwitch", status: false, symbol: "X" },
+  { id: "DivideSwitch", status: false, symbol: "/" },
+  { id: "ModuloSwitch", status: false, symbol: "%" },
 ];
 
 operationElement.forEach((operation) => {
@@ -77,7 +77,9 @@ operationElement.forEach((operation) => {
         }
         break;
       case "=":
-        OnOperationClick("EqualSwitch");
+        var id = GetCurrentOperation();
+        console.log(id);
+        let calculatedValue = CalculateValue(id);
         break;
       case "+":
         OnOperationClick("PlusSwitch");
@@ -94,17 +96,86 @@ operationElement.forEach((operation) => {
       case "%":
         OnOperationClick("ModuloSwitch");
         break;
+      case "CE":
+        display1.innerText = "0";
+        display2.innerText = "0";
+        display1Value = "";
+        display2Value = "";
+        break;
+      case "C":
+        switch (display) {
+          case 1:
+            display1.innerText = "0";
+            display1Value = "";
+            break;
+          case 2:
+            display2.innerText = "0";
+            display2Value = "";
+            break;
+        }
+        break;
     }
   });
 });
 
+let SwitchOnce = true;
+
 let OnOperationClick = (caller) => {
+  if (SwitchOnce) {
+    switch (display) {
+      case 1:
+        display = 2;
+        break;
+      case 2:
+        display = 1;
+        break;
+    }
+    SwitchOnce = false;
+  }
+
   Operations.forEach((operation) => {
     if (operation.id === caller) {
       operation.status = true;
+      operationDisplay.innerText = operation.symbol;
     } else {
       operation.status = false;
     }
   });
   console.log(Operations);
+};
+
+function GetCurrentOperation() {
+  var flag;
+  Operations.forEach((operation) => {
+    if (operation.status) {
+      console.log(operation);
+      flag = operation.id;
+    }
+  });
+  return flag;
+}
+
+let CalculateValue = (operation) => {
+  switch (operation) {
+    case "PlusSwitch":
+      display1Value = parseFloat(display1Value) + parseFloat(display2Value);
+      display1.innerText = display1Value;
+      break;
+    case "MinusSwitch":
+      display1Value = parseFloat(display1Value) - parseFloat(display2Value);
+      display1.innerText = display1Value;
+      break;
+    case "TimesSwitch":
+      display1Value = parseFloat(display1Value) * parseFloat(display2Value);
+      display1.innerText = display1Value;
+      break;
+    case "DivideSwitch":
+      display1Value = parseFloat(display1Value) / parseFloat(display2Value);
+      display1.innerText = display1Value;
+      break;
+    case "ModuloSwitch":
+      display1Value = parseFloat(display1Value) % parseFloat(display2Value);
+      display1.innerText = display1Value;
+      break;
+  }
 };

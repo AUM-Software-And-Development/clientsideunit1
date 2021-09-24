@@ -34,20 +34,6 @@ section {
   position: relative;
 }
 
-.display1 {
-  opacity: 0.42;
-  font-size: 26px;
-  height: 21;
-  overflow: hidden;
-}
-
-.temporary-result {
-  position: absolute;
-  bottom: 0;
-  font-size: 15px;
-  opacity: 0.42;
-}
-
 .all-buttons {
   color: #aaa124;
   display: grid;
@@ -68,4 +54,22 @@ section {
 
 .each-button:hover {
   background-color: rgb(32, 54, 45);
+}
+
+.display1 {
+  opacity: 0.6;
+  font-size: 26px;
+  height: 21;
+  overflow: hidden;
+}
+
+.display2 {
+  /* intentionally left blank */
+}
+
+.currentoperation {
+  position: absolute;
+  bottom: 0;
+  font-size: 21px;
+  opacity: 0.42;
 }
