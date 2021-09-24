@@ -22,6 +22,7 @@ section {
   background-color: rgb(42, 118, 100);
   border-radius: 4.8px;
   overflow: hidden;
+  box-shadow: 1px 2px #aaa124;
 }
 
 .output {
@@ -72,4 +73,20 @@ section {
   bottom: 0;
   font-size: 21px;
   opacity: 0.42;
+}
+
+.righthistory {
+  padding: 150px;
+  background-color: rgb(124, 241, 226);
+  color: #000124;
+  font-size: 1.1rem;
+  border-radius: 36px;
+  box-shadow: 0.4px 0.7px #aaa124;
+  margin: 11px;
+}
+
+li {
+  display: flex;
+  list-style: none;
+  border-bottom: 2px solid rgb(236, 116, 116);
 }
