@@ -11,9 +11,11 @@
 
 <body>
 
+    <div class="volatile-message"></div>
+
     <section>
 
-        <div class="container">
+        <div class="default-container" id="dynamic-container">
             <div class="output">
 
                 <div class="display1">0</div>
@@ -40,20 +42,20 @@
                 <div class="each-button number">3</div>
                 <div class="each-button operation">-</div>
                 <div class="each-button number btn-0">0</div>
-                <div class="each-button operation">=</div>
                 <div class="each-button number dot">.</div>
+                <div class="each-button operation">=</div>
                 <div class="each-button operation">/</div>
             </div>
 
         </div>
 
         <div class="righthistory">
-            <ul>
-                <li>-</li>
-                <li>-</li>
+            <ul class="dynamiclist">
                 <li>-</li>
             </ul>
         </div>
+
+        <div class="theme-button">Change theme</button>
 
     </section>
 

@@ -16,13 +16,30 @@ section {
   justify-content: center;
 }
 
-.container {
+#volatilemessage {
+  background-color: rgba(10, 100, 197, 0.33);
+  color: #f4f4f4;
+  padding: 1.2px;
+  text-align: center;
+  border-bottom: 1.2px solid rgb(236, 116, 116);
+}
+
+.default-container {
   width: 88%;
   max-width: 400px;
   background-color: rgb(42, 118, 100);
   border-radius: 4.8px;
   overflow: hidden;
   box-shadow: 1px 2px #aaa124;
+}
+
+.alternate-container {
+  width: 88%;
+  max-width: 400px;
+  background-color: #0f5a1cbe;
+  border-radius: 9.6px;
+  overflow: hidden;
+  box-shadow: 2px 4px #bbb246;
 }
 
 .output {
@@ -53,8 +70,27 @@ section {
   cursor: pointer;
 }
 
+.theme-button {
+  border: 0.5px solid rgba(50, 120, 100, 0.67);
+  display: inline-block;
+  height: 90px;
+  width: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: #de71ec;
+  border-radius: 4.8px;
+}
+
 .each-button:hover {
   background-color: rgb(32, 54, 45);
+}
+
+.theme-button:hover {
+  background-color: rgb(30, 25, 54);
+  color: #f4f4f4;
 }
 
 .display1 {
@@ -77,11 +113,11 @@ section {
 
 .righthistory {
   padding: 150px;
-  background-color: rgb(124, 241, 226);
-  color: #000124;
+  background-color: rgb(100, 201, 111);
+  color: #f4f4f4;
   font-size: 1.1rem;
-  border-radius: 36px;
-  box-shadow: 0.4px 0.7px #aaa124;
+  border-radius: 4.8px;
+  box-shadow: 0.2px 0.5px #aaa224;
   margin: 11px;
 }
 
