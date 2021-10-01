@@ -6,64 +6,89 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link href="..\..\Cascading Style Sheets\Sprint A3 - Zoo.css" type="text/css" rel="stylesheet">
+    <script src="../Headers.js"></script>
     <script src="Sprint A4 - Zoo Assignment.js" defer></script>
+
+    <script>
+        /* Scopes global variables in case they are needed */
+        const THIS = window.location.pathname
+        const THIS_FILENAME = ConvertToPlainEnglish(THIS)
+        const THIS_HEAD = document.head
+        THIS_HEAD.innerHTML += `<title>${THIS_FILENAME}</title>`
+    </script>
 </head>
 
-<body>
-
+<body class="X">
     <h2>Welcome to the Ark. Clicking on its source button will instantiate it.</h2>
-    <button id="SourceAnimals">Source Animals</button>
+    <button id="SourceAnimals">Build a zoo!</button>
     <br>
     <br>
 
     <div class="Zoo">
+
+        <div class="ZooFlexBox ZooFlexBoxOutlined">
+
+            <div class="ZooCages">
+            </div>
+
+            <p>These modifications can be made to any zoo that exists.</p>
+
+            <form id="AssignmentForm" class="AnimalEditor">
+
+                <label for="AnimalName">Animal Name:</label>
+                <br>
+                <input type="text" class="AnimalName" name="AnimalName">
+                <br>
+                <br>
+
+                <label for="AnimalType">Animal Type:</label>
+                <br>
+                <input type="text" class="AnimalType" name="AnimalType">
+                <br>
+                <br>
+
+                <label for="AnimalGender">Animal Gender:</label>
+                <br>
+                <input type="text" class="AnimalGender" name="AnimalGender">
+                <br>
+                <br>
+
+                <label for="AnimalAge">Animal Age:</label>
+                <br>
+                <input type="text" class="AnimalAge" name="AnimalAge">
+                <br>
+                <br>
+
+                <label for="AnimalWeight">Animal Weight:</label>
+                <br>
+                <input type="text" class="AnimalWeight" name="AnimalWeight">
+                <br>
+                <br>
+
+                <label for="AnimalPregnancy">Animal is pregnant? (true or false):</label>
+                <br>
+                <input type="text" class="AnimalPregnancy" name="AnimalPregnancy">
+                <br>
+                <br>
+
+                <input type="submit" id="ChangeAnimals" value="Apply Changes">
+                <br>
+                <br>
+            </form>
+            <br>
+        </div>
+
+        <div class="ZooFlexBox ZooFlexBoxOutlined">
+            <div class="Name">
+                <p>The zoo does not exist yet.</p>
+            </div>
+            <div class="Capacity"></div>
+            <div class="NumberOfGuests"></div>
+            <table></table>
+        </div>
+
     </div>
-    <p>These modifications will persist until you commit a new one.</p>
-
-    <form id="AssignmentForm">
-
-        <label for="AnimalName">Animal Name:</label>
-        <br>
-        <input type="text" class="AnimalName" name="AnimalName">
-        <br>
-        <br>
-
-        <label for="AnimalType">Animal Type:</label>
-        <br>
-        <input type="text" class="AnimalType" name="AnimalType">
-        <br>
-        <br>
-
-        <label for="AnimalGender">Animal Gender:</label>
-        <br>
-        <input type="text" class="AnimalGender" name="AnimalGender">
-        <br>
-        <br>
-
-        <label for="AnimalAge">Animal Age:</label>
-        <br>
-        <input type="text" class="AnimalAge" name="AnimalAge">
-        <br>
-        <br>
-
-        <label for="AnimalWeight">Animal Weight:</label>
-        <br>
-        <input type="text" class="AnimalWeight" name="AnimalWeight">
-        <br>
-        <br>
-
-        <label for="AnimalPregnancy">Animal is pregnant? (true or false):</label>
-        <br>
-        <input type="text" class="AnimalPregnancy" name="AnimalPregnancy">
-        <br>
-        <br>
-
-        <input type="submit" id="ChangeAnimals" value="Apply Changes">
-        <br>
-        <br>
-    </form>
-    <br>
 
 </body>
 

@@ -1,5 +1,8 @@
 let First = true;
 
+let AnimalEditor = document.querySelector(".AnimalEditor");
+AnimalEditor.hidden = true;
+
 class AnimalForm {
   constructor(Name, Type, Age, Gender, Weight, IsPregnant) {
     this.Name = Name;
@@ -81,7 +84,7 @@ function RecursivelyBuildTheZoo(Zoo) {
     Zoo.cages = [];
   }
   Zoo.cages.push(
-    new AnimalListBox(document.querySelector(".Zoo"), Zoo.animals)
+    new AnimalListBox(document.querySelector(".ZooCages"), Zoo.animals)
   );
 
   // Define external elements
@@ -114,7 +117,10 @@ function RecursivelyBuildTheZoo(Zoo) {
     // Code has ran. The default item gets selected
     Zoo.cages[0].SelectListBox[0].selected = true;
   }
+
   First = false;
+
+  PostZooData(Zoo);
 
   // Gets the currently selected item each time the list box is clicked and fills the animal form
   Zoo.cages[0].SelectListBox.onclick = () => {
@@ -127,7 +133,10 @@ function RecursivelyBuildTheZoo(Zoo) {
     );
   };
 
-  // Form data
+  // Unhide the form
+  AnimalEditor.hidden = false;
+
+  // User posts form data
   document.getElementById("AssignmentForm").addEventListener("submit", (e) => {
     e.preventDefault();
     let animalChanges = new FormData(document.getElementById("AssignmentForm"));
@@ -172,4 +181,69 @@ function GetForm(key) {
       return document.forms[i];
     }
   }
+}
+
+function PostZooData(Zoo) {
+  let ZooNameDivNode = document.querySelector(".Name");
+  let ZooCapacityDivNode = document.querySelector(".Capacity");
+  let ZooGuestNumberDivNode = document.querySelector(".NumberOfGuests");
+
+  let table = document.querySelector("table");
+  let data = Object.keys(Zoo.animals[0]);
+
+  while (table.firstChild) {
+    table.removeChild(table.firstChild);
+  }
+
+  for (const property in Zoo) {
+    console.log(
+      "Zoo property found: '" +
+        property +
+        "' ||| " +
+        "The value of the property is: '" +
+        Zoo[property] +
+        "'"
+    );
+  }
+
+  for (let i = 0; i < Zoo.capacity - 1; i++) {
+    Zoo.numberOfGuests++;
+    if (Zoo.numberOfGuests >= Zoo.capacity) {
+      Zoo.numberOfGuests = Zoo.capacity;
+    }
+    console.log(`The ${Zoo.name}'s number of guests is: ${Zoo.numberOfGuests}`);
+  }
+
+  console.log(Zoo.animals);
+
+  ZooNameDivNode.innerHTML = "The name of the zoo is: " + Zoo.name;
+  ZooCapacityDivNode.innerHTML = "The zoo capacity is: " + Zoo.capacity;
+  ZooGuestNumberDivNode.innerHTML =
+    "The zoo guest amount is: " + Zoo.numberOfGuests;
+
+  function generateTableHead(table, data) {
+    let thead = table.createTHead();
+    let row = thead.insertRow();
+    for (let key of data) {
+      let th = document.createElement("th");
+      let text = document.createTextNode(key);
+      th.appendChild(text);
+      row.appendChild(th);
+    }
+  }
+
+  function GenerateTable(table, data) {
+    for (let element of data) {
+      let row = table.insertRow();
+      for (key in element) {
+        let cell = row.insertCell();
+        let text = document.createTextNode(element[key]);
+        cell.appendChild(text);
+      }
+    }
+  }
+
+  // Generate table first to get the table body
+  GenerateTable(table, Zoo.animals);
+  generateTableHead(table, data);
 }

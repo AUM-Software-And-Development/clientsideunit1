@@ -6,6 +6,23 @@ body.Zoo {
   font-weight: bold;
 }
 
+body.X {
+  background-color: #11111111;
+  color: #110;
+  font-size: large;
+}
+
+/* Flex Boxes */
+.Zoo {
+  display: flex;
+}
+
+.ZooFlexBoxOutlined {
+  border-top: 1px solid black;
+  padding: 9px;
+  margin-left: 10px;
+}
+
 /* Main */
 body.Main {
   background-color: #dabbaa;
@@ -28,16 +45,16 @@ li.Automated-li a {
 
 table {
   border-collapse: collapse;
-  margin: 25px 0;
+  margin: 24px 0;
   font-size: 0.9em;
   font-family: sans-serif;
-  min-width: 400px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  min-width: 360px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.18);
   text-align: right;
 }
 
 thead tr {
-  background: #009879;
+  background: #009690;
   color: #ffffff;
   text-align: left;
 }
