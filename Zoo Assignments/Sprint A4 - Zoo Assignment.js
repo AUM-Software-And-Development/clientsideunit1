@@ -4,42 +4,54 @@ let AnimalEditor = document.querySelector(".AnimalEditor");
 AnimalEditor.hidden = true;
 
 class AnimalForm {
-  constructor(Name, Type, Age, Gender, Weight, IsPregnant) {
+  constructor(Name, Type, Age, Weight, Gender, IsPregnant) {
     this.Name = Name;
     this.Type = Type;
     this.Age = Age;
-    this.Gender = Gender;
     this.Weight = Weight;
+    this.Gender = Gender;
     this.IsPregnant = IsPregnant;
   }
 }
 
 class AnimalListBox {
-  constructor(location, array) {
+  constructor(location, array, element) {
     this.SelectListBox = document.createElement("select");
     this.SelectListBox.size = array.length;
     this.location = location;
   }
 }
 
-// Zoo instantiate
-let NoahsArk = {
-  name: "Noah's Ark",
-  capacity: 50,
-  numberOfGuests: 1,
-  animals: new Array(),
-  cages: [],
-};
+class ZooInterface {
+  constructor(name, capacity, numberOfGuests) {
+    this.name = name;
+    this.capacity = capacity;
+    this.numberOfGuests = numberOfGuests;
+    this.animals = new Array();
+    this.cages = new Array();
+  }
+}
+
+let DefaultZoo = new ZooInterface("Noah's Ark", 50, 1);
+// The submit event handler duplicates the Zoo for some reason, which breaks recursion
+var VolatileZoo = null;
 
 // Animals instantiate
 document.getElementById("SourceAnimals").onclick = () => {
-  NoahsArk.animals = [
+  // Zoo instantiate
+  if (!First) {
+    EmptyCages(DefaultZoo);
+  }
+
+  DefaultZoo = new ZooInterface("Noah's Ark", 50, 1);
+
+  DefaultZoo.animals.push(
     {
       Name: "Perry",
       Type: "Platypus",
       Age: 2,
-      Gender: "Female",
       Weight: 3.2,
+      Gender: "Female",
       IsPregnant: true,
     },
 
@@ -47,8 +59,8 @@ document.getElementById("SourceAnimals").onclick = () => {
       Name: "Harry",
       Type: "Hummingbird",
       Age: 2,
-      Gender: "Male",
       Weight: 3.2,
+      Gender: "Male",
       IsPregnant: false,
     },
 
@@ -56,8 +68,8 @@ document.getElementById("SourceAnimals").onclick = () => {
       Name: "Sherry",
       Type: "Shark",
       Age: 2,
-      Gender: "Female",
       Weight: 852,
+      Gender: "Female",
       IsPregnant: true,
     },
 
@@ -65,35 +77,51 @@ document.getElementById("SourceAnimals").onclick = () => {
       Name: "Cherry",
       Type: "Chimpanzee",
       Age: 2,
-      Gender: "Female",
       Weight: 3.2,
+      Gender: "Female",
       IsPregnant: true,
-    },
-  ];
-  RecursivelyBuildTheZoo(NoahsArk);
+    }
+  );
+
+  FillCages(DefaultZoo);
+
+  for (const property in DefaultZoo) {
+    console.log(
+      "Zoo property found: '" +
+        property +
+        "' ||| " +
+        "The value of the property is: '" +
+        DefaultZoo[property] +
+        "'"
+    );
+  }
+
+  for (let i = 0; i < DefaultZoo.capacity - 1; i++) {
+    DefaultZoo.numberOfGuests++;
+    if (DefaultZoo.numberOfGuests >= DefaultZoo.capacity) {
+      DefaultZoo.numberOfGuests = DefaultZoo.capacity;
+    }
+    console.log(
+      `The ${DefaultZoo.name}'s number of guests is: ${DefaultZoo.numberOfGuests}`
+    );
+  }
+
+  RecursivelyBuildTheZoo(DefaultZoo);
 };
 
 var LastAnimal = 0;
 
 function RecursivelyBuildTheZoo(Zoo) {
   // Define script elements to use
-  if (Zoo.cages) {
-    Zoo.cages.forEach((cage) => {
-      cage.SelectListBox.remove();
-    });
-    Zoo.cages = [];
-  }
-  Zoo.cages.push(
-    new AnimalListBox(document.querySelector(".ZooCages"), Zoo.animals)
-  );
+  FillCages(Zoo);
 
   // Define external elements
   const Form1 = new AnimalForm(
     document.querySelector(".AnimalName"),
     document.querySelector(".AnimalType"),
     document.querySelector(".AnimalAge"),
-    document.querySelector(".AnimalGender"),
     document.querySelector(".AnimalWeight"),
+    document.querySelector(".AnimalGender"),
     document.querySelector(".AnimalPregnancy")
   );
 
@@ -122,8 +150,13 @@ function RecursivelyBuildTheZoo(Zoo) {
 
   PostZooData(Zoo);
 
+  // Catches the zoo so that the event handlers don't cause duplicate reference errors
+  VolatileZoo = Zoo;
+  delete Zoo;
+
   // Gets the currently selected item each time the list box is clicked and fills the animal form
-  Zoo.cages[0].SelectListBox.onclick = () => {
+  VolatileZoo.cages[0].SelectListBox.onclick = () => {
+    Zoo = VolatileZoo;
     FillAnimalForm(
       Form1,
       Zoo.cages[0].SelectListBox.options[
@@ -131,6 +164,7 @@ function RecursivelyBuildTheZoo(Zoo) {
       ].value,
       Zoo
     );
+    delete Zoo;
   };
 
   // Unhide the form
@@ -138,6 +172,8 @@ function RecursivelyBuildTheZoo(Zoo) {
 
   // User posts form data
   document.getElementById("AssignmentForm").addEventListener("submit", (e) => {
+    Zoo = VolatileZoo;
+    delete VolatileZoo;
     e.preventDefault();
     let animalChanges = new FormData(document.getElementById("AssignmentForm"));
     let objectReplacement = [];
@@ -156,6 +192,23 @@ function RecursivelyBuildTheZoo(Zoo) {
     LastAnimal = Zoo.cages[0].SelectListBox.selectedIndex;
     RecursivelyBuildTheZoo(Zoo);
   });
+}
+
+function FillCages(Zoo) {
+  Zoo.cages.forEach((cage) => {
+    cage.SelectListBox.remove();
+  });
+  Zoo.cages = [];
+  Zoo.cages.push(
+    new AnimalListBox(document.querySelector(".ZooCages"), Zoo.animals)
+  );
+}
+
+function EmptyCages(Zoo) {
+  Zoo.cages.forEach((cage) => {
+    cage.SelectListBox.remove();
+  });
+  Zoo.cages = [];
 }
 
 // Fills a form using the form itself as a base
@@ -183,6 +236,29 @@ function GetForm(key) {
   }
 }
 
+// Data
+function GenerateTableHead(table, data) {
+  let thead = table.createTHead();
+  let row = thead.insertRow();
+  for (let key of data) {
+    let th = document.createElement("th");
+    let text = document.createTextNode(key);
+    th.appendChild(text);
+    row.appendChild(th);
+  }
+}
+
+function GenerateTable(table, data) {
+  for (let element of data) {
+    let row = table.insertRow();
+    for (key in element) {
+      let cell = row.insertCell();
+      let text = document.createTextNode(element[key]);
+      cell.appendChild(text);
+    }
+  }
+}
+
 function PostZooData(Zoo) {
   let ZooNameDivNode = document.querySelector(".Name");
   let ZooCapacityDivNode = document.querySelector(".Capacity");
@@ -195,55 +271,12 @@ function PostZooData(Zoo) {
     table.removeChild(table.firstChild);
   }
 
-  for (const property in Zoo) {
-    console.log(
-      "Zoo property found: '" +
-        property +
-        "' ||| " +
-        "The value of the property is: '" +
-        Zoo[property] +
-        "'"
-    );
-  }
-
-  for (let i = 0; i < Zoo.capacity - 1; i++) {
-    Zoo.numberOfGuests++;
-    if (Zoo.numberOfGuests >= Zoo.capacity) {
-      Zoo.numberOfGuests = Zoo.capacity;
-    }
-    console.log(`The ${Zoo.name}'s number of guests is: ${Zoo.numberOfGuests}`);
-  }
-
-  console.log(Zoo.animals);
-
-  ZooNameDivNode.innerHTML = "The name of the zoo is: " + Zoo.name;
-  ZooCapacityDivNode.innerHTML = "The zoo capacity is: " + Zoo.capacity;
+  ZooNameDivNode.innerHTML = "The name of this zoo is: " + Zoo.name;
+  ZooCapacityDivNode.innerHTML = "This zoo's capacity is: " + Zoo.capacity;
   ZooGuestNumberDivNode.innerHTML =
-    "The zoo guest amount is: " + Zoo.numberOfGuests;
-
-  function generateTableHead(table, data) {
-    let thead = table.createTHead();
-    let row = thead.insertRow();
-    for (let key of data) {
-      let th = document.createElement("th");
-      let text = document.createTextNode(key);
-      th.appendChild(text);
-      row.appendChild(th);
-    }
-  }
-
-  function GenerateTable(table, data) {
-    for (let element of data) {
-      let row = table.insertRow();
-      for (key in element) {
-        let cell = row.insertCell();
-        let text = document.createTextNode(element[key]);
-        cell.appendChild(text);
-      }
-    }
-  }
+    "This zoo's current guest amount is: " + Zoo.numberOfGuests;
 
   // Generate table first to get the table body
   GenerateTable(table, Zoo.animals);
-  generateTableHead(table, data);
+  GenerateTableHead(table, data);
 }

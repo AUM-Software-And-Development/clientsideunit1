@@ -21,6 +21,7 @@ body.X {
   border-top: 1px solid black;
   padding: 9px;
   margin-left: 10px;
+  min-width: 18vw;
 }
 
 /* Main */
