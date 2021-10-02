@@ -43,6 +43,8 @@ document.getElementById("SourceAnimals").onclick = () => {
     EmptyTheCages(DefaultZoo);
   }
 
+  First = true;
+
   DefaultZoo = new ZooInterface("Noah's Ark", 50, 1);
 
   DefaultZoo.animals.push(
@@ -112,12 +114,18 @@ function RecursivelyBuildTheZoo(Zoo) {
 
   // Fill the animal form using the default animal
   if (!First) {
-    FillTheAnimalForm(Form1, Zoo.animals[LastAnimal].Name, Zoo);
-    Zoo.cages[0].SelectListBox[LastAnimal].selected = true;
+    if (Zoo.cages[0].SelectListBox.lastChild)
+    {
+      Zoo.cages[0].SelectListBox.lastChild.selected = true;
+      FillTheAnimalForm(Form1, Zoo.cages[0].SelectListBox.lastChild.value, Zoo);
+    }
   } else {
     FillTheAnimalForm(Form1, "Perry", Zoo);
     // Code has ran. The default item gets selected
-    Zoo.cages[0].SelectListBox[0].selected = true;
+    if (Zoo.cages[0].SelectListBox.firstChild)
+    {
+      Zoo.cages[0].SelectListBox.firstChild.selected = true;
+    }
   }
 
   First = false;
@@ -150,19 +158,27 @@ Runtime_EventListeners:
 
   // User posts form data
   document.getElementById("AssignmentForm").addEventListener("submit", (e) => {
-    if (e.key === 'Enter')
+    if (!Zoo.cages[0].SelectListBox.firstChild)
     {
+      window.alert("None of the animals are in a location that allows editing. Add an animal back to the cage to edit it.");
+      return;
+    }
+    else
+    {
+      if (e.key === 'Enter')
+      {
+        Zoo = VolatileZoo;
+        delete VolatileZoo;
+        e.preventDefault();
+        ApplyUserFormRequests(Zoo);
+        RecursivelyBuildTheZoo(Zoo);
+      }
       Zoo = VolatileZoo;
       delete VolatileZoo;
       e.preventDefault();
       ApplyUserFormRequests(Zoo);
       RecursivelyBuildTheZoo(Zoo);
     }
-    Zoo = VolatileZoo;
-    delete VolatileZoo;
-    e.preventDefault();
-    ApplyUserFormRequests(Zoo);
-    RecursivelyBuildTheZoo(Zoo);
   });
 
   document.querySelector(".add-animal").onclick = (e) => {
@@ -269,10 +285,20 @@ function GenerateTableHead(table, data) {
 function GenerateTable(table, data) {
   for (let element of data) {
     let row = table.insertRow();
+    let count = 0;
     for (key in element) {
       let cell = row.insertCell();
       let text = document.createTextNode(element[key]);
       cell.appendChild(text);
+      if (count === 6 && element[key])
+      {
+        cell.style.background = "#c42525c9";
+      }
+      else if (count === 6 && !element[key])
+      {
+        cell.style.background = "#009690";
+      }
+      count++;
     }
   }
 }
@@ -281,6 +307,7 @@ function PostZooData(Zoo) {
   let ZooNameDivNode = document.querySelector(".Name");
   let ZooCapacityDivNode = document.querySelector(".Capacity");
   let ZooAnimalNumberDivNode = document.querySelector(".NumberOfAnimals");
+  let ZooAnimalsCagedNumberDivNode = document.querySelector(".NumberOfAnimalsInACage");
   let ZooGuestNumberDivNode = document.querySelector(".NumberOfGuests");
 
   let table = document.querySelector("table");
@@ -296,6 +323,15 @@ function PostZooData(Zoo) {
     "This zoo's current guest amount is: " + Zoo.numberOfGuests;
   ZooAnimalNumberDivNode.innerHTML = "This zoo's current animal amount is: " + Zoo.animals.length;
 
+  let cagedCount = 0;
+  Zoo.animals.forEach((animal) => {
+    if (animal.Caged){
+      cagedCount++;
+    }
+  })
+  ZooAnimalsCagedNumberDivNode.innerHTML = "This zoo's current caged animal amount is: " + cagedCount;
+
+
   // Generate table first to get the table body
   GenerateTable(table, Zoo.animals);
   GenerateTableHead(table, data);
@@ -307,6 +343,29 @@ function ApplyUserFormRequests(Zoo) {
   for (let kvp of animalChanges.entries()) {
     objectReplacement.push(kvp[1]);
   }
+  let test = objectReplacement[4].toLowerCase();
+  switch (test)
+  {
+    case "male":
+      break;
+    case "female":
+      break;
+    default:
+      alert("A value of female or male must be entered to denote a gender");
+      return;
+  }
+  test = objectReplacement[5].toLowerCase();
+  switch (test)
+  {
+    case "true":
+      break;
+    case "false":
+      break;
+    default:
+      alert("A value of true or false must be entered to denote a pregnancy");
+      return;
+  }
+
   let newAnimal = {
     Name: objectReplacement[0],
     Type: objectReplacement[1],
@@ -329,7 +388,6 @@ function ApplyUserFormRequests(Zoo) {
       console.log(animal);
     }
   })
-  LastAnimal = 0;
 }
 
 function AddAnimalFromForm(Zoo) {
@@ -363,7 +421,6 @@ function AddAnimalFromForm(Zoo) {
     Caged: true,
   };
   Zoo.animals.push(newAnimal);
-  LastAnimal = 0;
 }
 
 function RemoveAnimalFromCage(Zoo) {
@@ -374,6 +431,4 @@ function RemoveAnimalFromCage(Zoo) {
       animal.Caged = false;
     }
   });
-
-  LastAnimal = 0;
 }

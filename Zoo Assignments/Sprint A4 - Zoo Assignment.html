@@ -30,48 +30,48 @@
 
         <div class="ZooFlexBox ZooFlexBoxOutlined">
 
-            <p>These modifications can be made to any zoo that exists.</p>
+            <p>These modifications can be made only if a zoo exists.</p>
 
             <form id="AssignmentForm" class="AnimalEditor">
 
                 <label for="AnimalName">Animal Name:</label>
                 <br>
-                <input type="text" class="AnimalName" name="AnimalName">
+                <input type="text" class="AnimalName" name="AnimalName" required>
                 <br>
                 <br>
 
                 <label for="AnimalType">Animal Type:</label>
                 <br>
-                <input type="text" class="AnimalType" name="AnimalType">
+                <input type="text" class="AnimalType" name="AnimalType" required>
                 <br>
                 <br>
 
                 <label for="AnimalAge">Animal Age:</label>
                 <br>
-                <input type="text" class="AnimalAge" name="AnimalAge">
+                <input type="text" class="AnimalAge" name="AnimalAge" required>
                 <br>
                 <br>
 
                 <label for="AnimalWeight">Animal Weight:</label>
                 <br>
-                <input type="text" class="AnimalWeight" name="AnimalWeight">
+                <input type="text" class="AnimalWeight" name="AnimalWeight" required>
                 <br>
                 <br>
 
                 <label for="AnimalGender">Animal Gender:</label>
                 <br>
-                <input type="text" class="AnimalGender" name="AnimalGender">
+                <input type="text" class="AnimalGender" name="AnimalGender" required>
                 <br>
                 <br>
 
                 <label for="AnimalPregnancy">Animal is pregnant? (true or false):</label>
                 <br>
-                <input type="text" class="AnimalPregnancy" name="AnimalPregnancy">
+                <input type="text" class="AnimalPregnancy" name="AnimalPregnancy" required>
                 <br>
                 <br>
 
                 <input type="submit" id="ChangeAnimals" value="Apply Changes">
-                <button class="add-animal">Add info as a new animal</button>
+                <button class="add-animal">Add to cage</button>
                 <button class="remove-animal">Remove the selected animal</button>
             </form>
             <br>
@@ -91,6 +91,7 @@
             </div>
             <div class="Capacity"></div>
             <div class="NumberOfAnimals"></div>
+            <div class="NumberOfAnimalsInACage"></div>
             <div class="NumberOfGuests"></div>
             <table></table>
         </div>

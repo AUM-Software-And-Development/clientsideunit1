@@ -51,13 +51,13 @@ table {
   font-family: sans-serif;
   min-width: 360px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.18);
-  text-align: right;
+  text-align: center;
 }
 
 thead tr {
   background: #009690;
   color: #ffffff;
-  text-align: left;
+  text-align: center;
 }
 
 td {
