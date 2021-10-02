@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact form for resume</title>
     <link href="../Cascading Style Sheets/Sprint A4 - Contact.css" rel="stylesheet">
+    <script src="Sprint A4 - Contact Form.js"></script>
 </head>
 
 <body>
@@ -14,18 +15,18 @@
     <div class="wrapper">
         <h2>Get crackin!</h2>
         <div class="error-message"></div>
-        <form id="contact-form">
+        <form id="contact-form" onsubmit="return Validation()">
             <div class="form-input">
-                <input id="input-name" type="text" placeholder="Name">
+                <input id="input-name" type="text" placeholder="Name" value="Eric">
             </div>
             <div class="form-input">
-                <input id="input-subject" type="text" placeholder="Subject">
+                <input id="input-subject" type="text" placeholder="Subject" value="Long subject">
             </div>
             <div class="form-input">
-                <input id="input-phone" type="text" placeholder="Phone">
+                <input id="input-phone" type="text" placeholder="Phone" value="5054577891">
             </div>
             <div class="form-input">
-                <input id="input-email" type="text" placeholder="Email">
+                <input id="input-email" type="text" placeholder="Email" value="Admin@blob.com">
             </div>
             <div class="form-input">
                 <textarea id="message" placeholder="Message"></textarea>
